@@ -1,0 +1,40 @@
+version: "2.1"
+
+services:
+  web:
+    extends:
+        file: ${HOME}/.docksal/stacks/services.yml
+        service: apache
+    labels:
+      - io.docksal.virtual-host=cms-${VIRTUAL_HOST}
+    environment:
+      - APACHE_DOCUMENTROOT=/var/www/cms/web
+    depends_on:
+      - cli
+
+  cli:
+    extends:
+        file: ${HOME}/.docksal/stacks/services.yml
+        service: cli
+    environment:
+      - DRUSH_OPTIONS_URI=cms-${VIRTUAL_HOST}
+
+  db:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: mysql
+
+  frontend:
+    hostname: frontend
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: cli
+    labels:
+      - io.docksal.virtual-host=preview-${VIRTUAL_HOST}
+      - io.docksal.virtual-port=3000
+    environment:
+      # This could be used for fs polling on systems where fs events are not available (Mac with NFS volumes or Windows)
+      - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING:-0}
+    working_dir: /var/www/frontend
+    # Optionally run in debug mode by setting PREVIEW_START_COMMAND to "npm run debug"
+    command: ["bash", "-lc", "npm start"]
