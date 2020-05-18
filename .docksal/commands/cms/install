@@ -103,7 +103,10 @@ fix_permissions
 init_settings
 time -p site_install
 
-echo -e "Open ${yellow}http://${VIRTUAL_HOST}${NC} in your browser to verify the setup."
-echo-yellow "Look for admin login credentials in the output above."
+login_link=$(cd "$PROJECT_ROOT/cms/web" && drush uli)
+
+echo -e "${yellow}Drupal URL${NC}: http://cms-${VIRTUAL_HOST} ${yellow}"
+echo -e "Look for admin login credentials in the output above."
+echo -e "${yellow}Drupal admin login:${NC} ${login_link}"
 
 #-------------------------- END: Execution --------------------------------
