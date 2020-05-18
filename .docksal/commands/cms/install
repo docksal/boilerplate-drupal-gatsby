@@ -101,7 +101,7 @@ site_install ()
 #time -p composer_install
 fix_permissions
 init_settings
-time -p site_install
+time site_install
 
 login_link=$(cd "$PROJECT_ROOT/cms/web" && drush uli)
 

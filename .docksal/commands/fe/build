@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+## Build frontend (static website)
+##
+## Usage: fin fe/build
+
+# Abort if anything fails
+set -e
+
+fin docker-compose run --rm cli bash -lc 'cd ${PROJECT_ROOT}/frontend; time npm run build'
