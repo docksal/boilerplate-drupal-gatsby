@@ -22,7 +22,8 @@
         "drupal/graphql": "~4.0"
     },
     "require-dev": {
-        "drupal/core-dev": "^8.8"
+        "drupal/core-dev": "^8.8",
+        "drush/drush": "^10.2"
     },
     "conflict": {
         "drupal/drupal": "*"
