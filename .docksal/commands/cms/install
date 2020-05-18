@@ -2,9 +2,9 @@
 
 #: exec_target = cli
 
-## Initialize/reinstall site
+## Initialize/reinstall CMS
 ##
-## Usage: fin init-site
+## Usage: fin cms/init
 
 # Abort if anything fails
 set -e
@@ -98,7 +98,7 @@ site_install ()
 #-------------------------- Execution --------------------------------
 
 # Project initialization steps
-time -p composer_install
+#time -p composer_install
 fix_permissions
 init_settings
 time -p site_install

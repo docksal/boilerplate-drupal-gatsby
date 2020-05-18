@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## Initialize stack and site (full reset)
+## Initialize project from scratch (full reset)
 ##
 ## Usage: fin init
 
@@ -23,14 +23,26 @@ echo-yellow () { echo -e "${yellow}$1${NC}"; }
 
 #-------------------------- Execution --------------------------------
 
-# Stack initialization
-echo -e "${green_bg} Step 1 ${NC}${green} Initializing stack...${NC}"
-fin project reset -f
+# Cleanup
+fin project rm -f
 
-# Site initialization
-echo -e "${green_bg} Step 2 ${NC}${green} Initializing site...${NC}"
+# Code
+echo -e "${green_bg} Step 1 ${NC}${green} Initializing codebase...${NC}"
+# Using "fin docker-compose run cli <command>" to run a one off command using the cli service config
+# This way, we can run cli commands BEFORE starting the whole stack (which may fail without dependencies installed first)
+echo -e "${green} * CMS codebase...${NC}"
+fin docker-compose run --rm cli bash -lc /var/www/.docksal/commands/cms/code-init
+echo -e "${green} * Frontend codebase...${NC}"
+fin docker-compose run --rm cli bash -lc /var/www/.docksal/commands/fe/code-init
+
+# Stack
+echo -e "${green_bg} Step 2 ${NC}${green} Initializing stack...${NC}"
+fin project start
+
+# CMS
+echo -e "${green_bg} Step 3 ${NC}${green} Installing CMS...${NC}"
 # This runs inside cli using http://docs.docksal.io/en/v1.4.0/fin/custom-commands/#executing-commands-inside-cli
-fin init-site
+fin cms/install
 
 echo -e "${green_bg} DONE! ${NC}${green} Completed all initialization steps.${NC}"
 
