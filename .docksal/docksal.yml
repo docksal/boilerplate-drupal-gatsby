@@ -20,6 +20,7 @@ services:
       - io.docksal.virtual-host=cms-${VIRTUAL_HOST}
     environment:
       - APACHE_DOCUMENTROOT=/var/www/cms/web
+      - APACHE_FCGI_HOST_PORT=php:9000
     depends_on:
       - php
     healthcheck:
@@ -29,6 +30,8 @@ services:
     extends:
       file: ${HOME}/.docksal/stacks/services.yml
       service: cli
+    environment:
+      - DRUSH_OPTIONS_URI=cms-${VIRTUAL_HOST}
     healthcheck:
       disable: true # Temporary workaround to disable container healthcheck (causes performance issues with Docker)
 
