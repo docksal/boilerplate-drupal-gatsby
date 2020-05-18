@@ -7,6 +7,7 @@ services:
       service: cli
     environment:
       - DRUSH_OPTIONS_URI=cms-${VIRTUAL_HOST}
+      - DRUPAL_URI=http://web/
     # Keep cli running idle
     command: ["tail", "-f", "/dev/null"]
     healthcheck:
@@ -54,6 +55,7 @@ services:
     environment:
       # This could be used for fs polling on systems where fs events are not available (Mac with NFS volumes or Windows)
       - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING:-0}
+      - DRUPAL_URI=http://web/
     working_dir: /var/www/frontend
     # Optionally run in debug mode by setting PREVIEW_START_COMMAND to "npm run debug"
     command: ["bash", "-lc", "npm run develop"]

@@ -6,8 +6,7 @@ module.exports = {
     {
       resolve: `gatsby-source-drupal`,
       options: {
-        baseUrl: `http://web/`,
-        apiBase: `jsonapi`,
+        baseUrl: `${process.env.DRUPAL_URI}`,
       },
     },
     `gatsby-plugin-offline`,
