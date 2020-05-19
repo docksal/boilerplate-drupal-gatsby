@@ -12,4 +12,5 @@ set -e
 cd "$PROJECT_ROOT/cms"
 
 # Install dependencies
-time composer install --no-dev --ignore-platform-reqs --no-interaction --prefer-dist
+#time composer install --no-dev --ignore-platform-reqs --no-interaction --prefer-dist
+time composer install --ignore-platform-reqs --no-interaction --prefer-dist
