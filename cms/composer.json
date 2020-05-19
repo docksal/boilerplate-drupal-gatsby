@@ -19,6 +19,7 @@
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-project-message": "^8.8",
         "drupal/core-recommended": "^8.8",
+        "drupal/gatsby": "^1.0@beta",
         "drupal/graphql": "~4.0"
     },
     "require-dev": {
