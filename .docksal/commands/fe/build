@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#: exec_target = cli
+
 ## Build frontend (static website)
 ##
 ## Usage: fin fe/build
@@ -7,4 +9,11 @@
 # Abort if anything fails
 set -e
 
-fin docker-compose run --rm cli bash -lc 'cd ${PROJECT_ROOT}/frontend; time npm run build'
+cd ${PROJECT_ROOT}/frontend
+
+# Contents of both .cache and public have to be dropped
+# Cannot use 'gatsby clean' here as it tries to drop the entry folder and we cannot do this since .cache is a mounted as a volume
+rm -rf .cache/*
+rm -rf public/*
+
+time npm run build
