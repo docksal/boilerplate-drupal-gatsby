@@ -11,6 +11,7 @@ services:
       - gatsby_node_modules:/var/www/frontend/node_modules
       - gatsby_build_cache:/var/www/frontend/.cache # gatsby build and preview cannot share the same .cache folder
     environment:
+      - DEBUG=1
       - DRUSH_OPTIONS_URI=cms-${VIRTUAL_HOST}
       - DRUPAL_URI=http://web/
     # Keep cli running idle
@@ -40,6 +41,7 @@ services:
       # Keep write-heavy folders in a volumes (improves fs performance on non-Linux platforms)
       - drupal_vendor:/var/www/cms/vendor
     environment:
+      - DEBUG=1
       - DRUSH_OPTIONS_URI=cms-${VIRTUAL_HOST}
     depends_on:
       - cli # cli has to start first to avoid race conditions in startup scripts between cli, php and preview
@@ -67,6 +69,7 @@ services:
       - io.docksal.virtual-host=preview-${VIRTUAL_HOST}
       - io.docksal.virtual-port=3000
     environment:
+      - DEBUG=1
       # This could be used for fs polling on systems where fs events are not available (Mac with NFS volumes or Windows)
       - CHOKIDAR_USEPOLLING=${CHOKIDAR_USEPOLLING:-0}
       - DRUPAL_URI=http://web/
