@@ -89,7 +89,7 @@ services:
     labels:
       - io.docksal.virtual-host=${VIRTUAL_HOST}
     environment:
-      - APACHE_DOCUMENTROOT=/var/www/public
+      - APACHE_DOCUMENTROOT=/var/www/frontend/public
     healthcheck:
       disable: true # Temporary workaround to disable container healthcheck (causes performance issues with Docker)
 
