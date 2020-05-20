@@ -1,0 +1,19 @@
+name: 'Umami Gatsby Demo'
+type: module
+package: Custom
+# This is required for Drupal 8.7.7 and below.
+core: 8.x
+description: 'Builds on top of Umami install profile to demonstrate Gatsby capabilities.'
+core_version_requirement: '^8 || ^9'
+dependencies:
+  - paragraphs
+  - gatsby
+  - default_content
+
+default_content:
+  node:
+    - f056f81a-4ed5-4e86-9ee8-7380bb142fe2
+  paragraph:
+    - 4dc28f94-dad0-43c5-bef1-126579672c75
+    - 3524eb12-28bf-4e32-911b-18afa7eee07a
+

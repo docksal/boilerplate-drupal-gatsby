@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Installation hooks for Umami Gatsby Demo module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function gatsby_demo_install() {    
+  // Set homepage.
+  $config = \Drupal::configFactory()
+    ->getEditable('system.site');
+  $config->set('page.front', '/node/19');
+  $config->save(TRUE);
+
+  // Install Claro theme.
+  \Drupal::service('theme_installer')->install(['claro']);
+
+  // Set default theme to Claro.
+  $config = \Drupal::configFactory()
+    ->getEditable('system.theme');
+  $config->set('default', 'claro');
+  $config->save(TRUE);
+}

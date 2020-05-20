@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: featured_recipes
+label: 'Featured Recipes'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

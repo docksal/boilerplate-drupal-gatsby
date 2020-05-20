@@ -91,6 +91,8 @@ site_install ()
 	drush site-install demo_umami -y \
 		install_configure_form.enable_update_status_module=NULL \
 		--site-name='My Drupal 8 Site'
+    # Enable Gatsby Demo module to demonstrate Gatsby preview.
+	drush en gatsby_demo -y	
 }
 
 #-------------------------- END: Functions --------------------------------

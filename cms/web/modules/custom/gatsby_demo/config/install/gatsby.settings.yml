@@ -1,0 +1,21 @@
+server_url: 'http://preview-drupal-gatsby.docksal'
+secret_key: ''
+preview_entity_types:
+  node: node
+  paragraph: paragraph
+  block_content: 0
+  contact_message: 0
+  content_moderation_state: 0
+  file: 0
+  media: 0
+  menu_link_content: 0
+  path_alias: 0
+  shortcut: 0
+  taxonomy_term: 0
+  user: 0
+preview:
+  landing_page: 1
+  recipe: 1
+iframe:
+  landing_page: 1
+  recipe: 1
