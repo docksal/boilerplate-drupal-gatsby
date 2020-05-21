@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+## Watch preview logs
+##
+## Usage: fin fe/logs
+
+# Abort if anything fails
+set -e
+
+cd "$PROJECT_ROOT/cms"
+
+fin drush uli

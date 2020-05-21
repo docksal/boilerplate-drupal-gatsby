@@ -41,9 +41,12 @@ fin project start
 
 # CMS
 echo -e "${green_bg} Step 3 ${NC}${green} Installing CMS...${NC}"
-# This runs inside cli using http://docs.docksal.io/en/v1.4.0/fin/custom-commands/#executing-commands-inside-cli
 fin cms/install
 
 echo -e "${green_bg} DONE! ${NC}${green} Completed all initialization steps.${NC}"
+
+echo -e "Drupal CMS:     ${yellow}http://cms-${VIRTUAL_HOST}${NC}"
+echo -e "Preview server: ${yellow}http://preview-${VIRTUAL_HOST}${NC}"
+echo -e "Frontend build: ${yellow}http://${VIRTUAL_HOST}${NC}  (run 'fin fe/build')"
 
 #-------------------------- END: Execution --------------------------------
