@@ -1,0 +1,69 @@
+diff --git a/gatsby.module b/gatsby.module
+index 02c54d6..4d57137 100644
+--- a/gatsby.module
++++ b/gatsby.module
+@@ -57,10 +57,14 @@ function gatsby_form_alter(&$form, $form_state, $form_id) {
+   // Override node edit form.
+   elseif (preg_match('/node_(\w*)_edit_form/', $form_id, $matches)) {
+     $node_type = $matches[1];
+-    $server_url = \Drupal::config('gatsby.settings')->get('server_url');
++    $preview_url = \Drupal::config('gatsby.settings')->get('preview_url');
++    // Default to server_url if preview_url was not set.
++    if(empty($preview_url)) {
++      $preview_url = \Drupal::config('gatsby.settings')->get('server_url');
++    }
+ 
+     // Override node edit form.
+-    if (!empty($preview_settings[$node_type]) && !empty($server_url)) {
++    if (!empty($preview_settings[$node_type]) && !empty($preview_url)) {
+       $front_page = \Drupal::configFactory()->get('system.site')->get('page.front');
+       $gatsby_show_home = FALSE;
+ 
+@@ -86,7 +90,7 @@ function gatsby_form_alter(&$form, $form_state, $form_id) {
+       // Implement "Open Preview" action.
+       $form['actions']['gatsby_preview']['#attached'] = [
+         'drupalSettings' => [
+-          'gatsby_preview_url' => $server_url,
++          'gatsby_preview_url' => $preview_url,
+           'gatsby_show_home' => $gatsby_show_home,
+         ],
+         'library' => [
+@@ -155,7 +159,11 @@ function gatsby_entity_delete(EntityInterface $entity) {
+  * Implements hook_node_view().
+  */
+ function gatsby_node_view(array &$build, $entity, $display, $view_mode) {
+-  $server_url = \Drupal::config('gatsby.settings')->get('server_url');
++  $preview_url = \Drupal::config('gatsby.settings')->get('preview_url');
++  // Default to server_url if preview_url was not set.
++  if(empty($preview_url)) {
++    $preview_url = \Drupal::config('gatsby.settings')->get('server_url');
++  }
+ 
+   // Override node view page with iframe to Gatsby site.
+   if (!empty($build['#node']) && $view_mode == 'full') {
+@@ -172,7 +180,7 @@ function gatsby_node_view(array &$build, $entity, $display, $view_mode) {
+         $alias = '';
+       }
+ 
+-      $gatsby_url = preg_replace('/\/$/', '', $server_url) . $alias;
++      $gatsby_url = preg_replace('/\/$/', '', $preview_url) . $alias;
+ 
+       $build = [];
+       $build['#node'] = $node;
+diff --git a/src/Form/GatsbyAdminForm.php b/src/Form/GatsbyAdminForm.php
+index 6e9a9f1..182a837 100644
+--- a/src/Form/GatsbyAdminForm.php
++++ b/src/Form/GatsbyAdminForm.php
+@@ -66,6 +66,12 @@ class GatsbyAdminForm extends ConfigFormBase {
+       '#description' => $this->t('The URL to the Gatsby preview server (with port number if needed)'),
+       '#default_value' => $config->get('server_url'),
+     ];
++    $form['preview_url'] = [
++      '#type' => 'textfield',
++      '#title' => $this->t('Gastby Preview URL'),
++      '#description' => $this->t('The external base URL for Gatsby previews (with port number if needed). '),
++      '#default_value' => $config->get('preview_url'),
++    ];
+     $form['secret_key'] = [
+       '#type' => 'textfield',
+       '#title' => $this->t('Gastby Preview Secret Key'),

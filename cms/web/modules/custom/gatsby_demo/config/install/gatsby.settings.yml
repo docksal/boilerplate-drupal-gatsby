@@ -1,4 +1,4 @@
-server_url: 'http://preview-drupal-gatsby.docksal'
+server_url: ''
 secret_key: ''
 preview_entity_types:
   node: node

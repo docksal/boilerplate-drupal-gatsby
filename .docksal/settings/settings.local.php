@@ -145,7 +145,7 @@ $databases['default']['default'] = array (
 $settings['file_chmod_directory'] = 0777;
 $settings['file_chmod_file'] = 0666;
 
-# File system settings.
+// File system settings.
 $config['system.file']['path']['temporary'] = '/tmp';
 
 // Reverse proxy configuration (Docksal vhost-proxy)
@@ -161,4 +161,13 @@ if (PHP_SAPI !== 'cli') {
 		// This is hardcoded because there is no header specifying the original port.
 		$_SERVER['SERVER_PORT'] = 443;
 	}
+}
+
+// Gatsby Preview.
+// server_url is used to push updates to gatsby internally (between container).
+$config['gatsby.settings']['server_url'] = "http://preview:3000";
+// preview_url is the external URL used in browser.
+if (PHP_SAPI !== 'cli') {
+  $protocol = 'on' == isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https' : 'http';
+  $config['gatsby.settings']['preview_url'] = "$protocol://preview-" . $_SERVER['VIRTUAL_HOST'];
 }
